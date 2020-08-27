@@ -1,0 +1,79 @@
+$primary: #f9a096;
+@import "../../node_modules/bulma/bulma.sass";
+
+body {
+  background: $primary;
+}
+
+.input, .textarea {
+  color: $dark;
+}
+
+textarea {
+  width: 320px;
+  height: 240px;
+}
+
+#title-logo {
+  font-weight: 600;
+  text-shadow: -.75px 0 rgba(66,85,104, .75), 0 .75px rgba(66,85,104, .75), .75px 0 rgba(66,85,104, .75), 0 -.75px rgba(66,85,104, .75);
+}
+
+#feed-sections section.section:first-of-type {
+  padding-top: .5rem;
+}
+
+#stand-up {
+  padding: 2rem;
+}
+
+#flash {
+  margin: 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 2;
+}
+
+#flash.is-hidden {
+  transition: all 2s ease-in;
+}
+
+.title:not(:last-child) {
+  margin-bottom: 0;
+}
+.title {
+  margin: .5rem;
+  padding: 0;
+}
+.section {
+  margin: 1.5rem;
+  padding: 0;
+}
+.card {
+  margin: 1rem 0;
+}
+
+main {
+  padding-bottom: 2%;
+}
+
+#den-title-columns {
+  padding-top: .75rem;
+  padding-left: 1rem;
+  &.columns:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+
+@media all and (max-width: 800px) {
+  .column {
+    max-width: 25rem;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .column {
+    max-width: 22rem;
+  }
+}

@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: <%= ENV['APP_NAME'] %>_development
+  host: localhost
+  user: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_PW'] %>
+
+test:
+  <<: *default
+  database: <%= ENV['APP_NAME'] %>_test
+  host: localhost
+  user: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_PW'] %>
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>

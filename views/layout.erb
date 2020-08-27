@@ -1,0 +1,68 @@
+<% signed_in = !!session["current_user_id"] %>
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Dynaposted: Content Your Way</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <%== csrf_metatag %>
+    <link rel="stylesheet" type="text/css" href="/main.bundle.css" />
+    <script type="text/javascript" src="/index.bundle.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" id="title-logo" href="#">Dynaposted</a>
+        <a class="navbar-item" href="#">Post</a>
+        <a class="navbar-item" href="#">Explore</a>
+        <a class="navbar-item is-hidden-desktop" href='<%= signed_in ? "/logins/sign_out" : "/logins/sign_in" %>'>
+          <% if signed_in %>
+             Log Out
+          <% else %>
+            Log In
+          <% end %>
+        </a>
+        <% unless signed_in %>
+          <a class="navbar-item is-hidden-desktop" href="/users/new">Sign Up</a>
+        <% end %>
+      </div>
+
+      <div id="nav-start" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href='<%= signed_in ? "/logins/sign_out" : "/logins/sign_in" %>' class="button is-dark">
+                <% if signed_in %>
+                  Log Out
+                <% else %>
+                  Log In
+                <% end %>
+              </a>
+              <% unless signed_in %>
+                <a href="/users/new" class="button is-light">
+                  Sign Up
+                </a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main id="app" class="hero is-dark is-fullheight">
+      <% if flash["message"] %>
+        <article id="flash" class="message is-info is-fullwidth">
+          <div class="message-header">
+            <p><%== flash["message"] %></p>
+            <span id="flash-delete">
+              <button class="delete" aria-label="delete"></button>
+            </span>
+          </div>
+        </article>
+      <% end %>
+      <%== yield %>
+    </main>
+  </body>
+</html>
