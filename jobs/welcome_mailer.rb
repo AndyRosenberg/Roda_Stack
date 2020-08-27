@@ -1,14 +1,15 @@
 require_relative 'mail_job'
 
 class WelcomeMailer < MailWorker
-  def perform(user)
+  def perform(user_id)
+    user = User.find(user_id)
+
     message = <<~MSG
       <h3>Thanks for signing up for #{ENV['APP_NAME']}!</h3>
-      <p>Feel free to explore and update your dynamic posts.</p>
     MSG
 
     Mail.deliver do
-      to      user['email']
+      to      user.email
       from    "#{ENV['APP_NAME']} <admin@po-it.com>"
       subject "Welcome to #{ENV['APP_NAME']}"
 

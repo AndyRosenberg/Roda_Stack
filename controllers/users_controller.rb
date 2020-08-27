@@ -4,7 +4,7 @@ class UsersController < Roda
       r.post do
         user = User.create(user_params(r))
         if !user.new_record?
-          WelcomeMailer.perform_async(user.as_json)
+          WelcomeMailer.perform_async_in_prod(user.id)
           session["current_user_id"] = user.id
           flash["message"] = "User has been created!"
           r.redirect("/")
