@@ -1,9 +1,10 @@
 <% signed_in = !!session["current_user_id"] %>
+<% app_name = ENV["APP_NAME"] %>
 
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Dynaposted: Content Your Way</title>
+    <title><%= app_name %></title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <%== csrf_metatag %>
@@ -14,7 +15,7 @@
   <body>
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" id="title-logo" href="#">Dynaposted</a>
+        <a class="navbar-item" id="title-logo" href="#"><%= app_name %></a>
         <a class="navbar-item" href="#">Post</a>
         <a class="navbar-item" href="#">Explore</a>
         <a class="navbar-item is-hidden-desktop" href='<%= signed_in ? "/logins/sign_out" : "/logins/sign_in" %>'>
