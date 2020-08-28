@@ -9,7 +9,7 @@ class UsersController < Roda
           flash["message"] = "User has been created!"
           r.redirect("/")
         else
-          flash.now["message"] = "Something went wrong. Please try again."
+          flash_ar_errors(user)
           view('users/new')
         end
       end
