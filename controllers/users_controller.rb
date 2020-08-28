@@ -39,7 +39,7 @@ class UsersController < Roda
             flash["message"] = "User has been updated!"
             r.redirect("/")
           else
-            somethings_wrong(user)
+            flash_ar_errors_with_edit_render
           end
         end
 
@@ -51,10 +51,10 @@ class UsersController < Roda
               session.clear
               r.redirect("/")
             else
-              somethings_wrong(user)
+              flash_ar_errors_with_edit_render
             end
           else
-            somethings_wrong(user)
+            flash_ar_errors_with_edit_render
           end
         end
       end
@@ -83,7 +83,7 @@ class UsersController < Roda
     end
   end
 
-  def somethings_wrong
+  def flash_ar_errors_with_edit_render
     flash_ar_errors(user)
     @current_user_json = user.to_json
     view('users/edit')
