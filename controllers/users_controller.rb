@@ -39,7 +39,7 @@ class UsersController < Roda
             flash["message"] = "User has been updated!"
             r.redirect("/")
           else
-            somethings_wrong("Something went wrong. Please try again.")
+            somethings_wrong(user)
           end
         end
 
@@ -51,10 +51,10 @@ class UsersController < Roda
               session.clear
               r.redirect("/")
             else
-              somethings_wrong("User has been deleted!")
+              somethings_wrong(user)
             end
           else
-            somethings_wrong("Name did not match.")
+            somethings_wrong(user)
           end
         end
       end
@@ -68,25 +68,23 @@ class UsersController < Roda
   end
 
   private
-  attr_accessor :user, :current_user_id
+  attr_accessor :user
 
   def user_params(r)
     r.params.slice("email", "name", "password", "time_zone")
   end
 
   def authorize_user(r, id)
-    self.current_user_id = session["current_user_id"]
+    self.user = User.find_by(id: session["current_user_id"]) if session["current_user_id"]
 
-    unless current_user_id && id == current_user_id.to_i
+    unless user && id == user.id
       flash["message"] = "Unauthorized update this user."
       r.redirect("/")
     end
-
-    self.user = User.find(current_user_id)
   end
 
-  def somethings_wrong(message)
-    flash.now["message"] = message
+  def somethings_wrong
+    flash_ar_errors(user)
     @current_user_json = user.to_json
     view('users/edit')
   end

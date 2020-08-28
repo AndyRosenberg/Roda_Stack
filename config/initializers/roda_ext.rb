@@ -20,4 +20,8 @@ class Roda
     response.status = 422
     render_json({}.to_json)
   end
+
+  def flash_ar_errors(object)
+    flash.now["message"] = object.errors.full_messages.join(", ")
+  end
 end

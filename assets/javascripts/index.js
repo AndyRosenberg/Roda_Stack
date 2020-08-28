@@ -6,6 +6,8 @@ import './events/flash-delete-button.js';
 import NewUserForm from './components/users/NewUserForm.vue';
 import EditUserForm from './components/users/EditUserForm.vue';
 import SignIn from './components/logins/SignIn.vue';
+import ForgotPW from './components/logins/Forgot.vue';
+import ResetPW from './components/logins/Reset.vue';
 
 Turbolinks.start()
 Vue.use(TurbolinksAdapter)
@@ -17,6 +19,8 @@ document.addEventListener('turbolinks:load', () => {
       'new-user-form': NewUserForm,
       'edit-user-form': EditUserForm,
       'sign-in': SignIn,
+      'forgot-password': ForgotPW,
+      'reset-password': ResetPW,
     }
   });
 });
