@@ -28,7 +28,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.css$/i,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+        ]
+      },
+      {
+        test: /\.scss$/i,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -36,9 +43,7 @@ module.exports = {
               publicPath: './public/',
             },
           },
-          // Translates CSS into CommonJS
           'css-loader',
-          // Compiles Sass to CSS
           'sass-loader',
         ],
       },
