@@ -1,6 +1,6 @@
 require "./config/initializers/init.rb"
 
-class App < Roda # :nodoc:
+class App < BaseController # :nodoc:
   controllers = %w(
     users logins
   )

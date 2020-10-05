@@ -1,4 +1,4 @@
-class LoginsController < Roda
+class LoginsController < BaseController
   route do |r|
     r.get "sign_in" do
       view('logins/sign_in')

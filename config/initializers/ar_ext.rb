@@ -1,3 +1,5 @@
+require 'erb'
+
 module ActiveRecordRoda
   def self.environment
     ENV["RACK_ENV"] || "development"

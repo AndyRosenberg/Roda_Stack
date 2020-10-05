@@ -1,5 +1,3 @@
-require_relative 'mail_job'
-
 class WelcomeMailer < MailWorker
   def perform(user_id)
     user = User.find(user_id)

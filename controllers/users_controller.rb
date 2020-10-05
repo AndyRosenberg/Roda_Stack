@@ -1,4 +1,4 @@
-class UsersController < Roda
+class UsersController < BaseController
   route do |r|
     r.is do
       r.post do
