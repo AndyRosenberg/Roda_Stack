@@ -24,6 +24,12 @@ class BaseController < Roda
     render_json({}.to_json)
   end
 
+  def flash_json
+    flash_json = flash.to_json
+    flash.clear
+    flash_json
+  end
+
   def flash_ar_errors(object)
     flash.now["message"] = object.errors.full_messages.join(", ")
   end

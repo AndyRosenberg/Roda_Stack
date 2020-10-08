@@ -27,18 +27,6 @@ textarea {
   padding: 2rem;
 }
 
-#flash {
-  margin: 0;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  z-index: 2;
-}
-
-#flash.is-hidden {
-  transition: all 2s ease-in;
-}
-
 .title:not(:last-child) {
   margin-bottom: 0;
 }

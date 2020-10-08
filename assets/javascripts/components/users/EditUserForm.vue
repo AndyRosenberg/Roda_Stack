@@ -9,7 +9,7 @@
             <div class="columns is-centered">
               <div class="column is-5-tablet is-4-desktop is-3-widescreen">
                 <form :action="action" method="POST">
-                  <input type="hidden" name="authenticity_token" v-model="csrf" />
+                  <CSRF />
                   <input type="hidden" name="_method" value="PUT" />
 
                   <div class="field">

@@ -1,5 +1,5 @@
 <%
-  signed_in = !!session["current_user_id"]
+  current_user_id = session["current_user_id"]
   app_name = ENV["APP_NAME"]
 %>
 
@@ -20,14 +20,16 @@
         <a class="navbar-item" id="title-logo" href="#"><%= app_name %></a>
         <a class="navbar-item" href="#">Post</a>
         <a class="navbar-item" href="#">Explore</a>
-        <a class="navbar-item is-hidden-desktop" href='<%= signed_in ? "/logins/sign_out" : "/logins/sign_in" %>'>
-          <% if signed_in %>
+        <a class="navbar-item is-hidden-desktop" href='<%= current_user_id ? "/logins/sign_out" : "/logins/sign_in" %>'>
+          <% if current_user_id %>
              Log Out
           <% else %>
             Log In
           <% end %>
         </a>
-        <% unless signed_in %>
+        <% if current_user_id %>
+          <a class="navbar-item is-hidden-desktop" href='<%= "/users/#{current_user_id}/edit" %>'>Settings</a>
+        <% else %>
           <a class="navbar-item is-hidden-desktop" href="/users/new">Sign Up</a>
         <% end %>
       </div>
@@ -36,14 +38,16 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a href='<%= signed_in ? "/logins/sign_out" : "/logins/sign_in" %>' class="button is-dark">
-                <% if signed_in %>
+              <a href='<%= current_user_id ? "/logins/sign_out" : "/logins/sign_in" %>' class="button is-dark">
+                <% if current_user_id %>
                   Log Out
                 <% else %>
                   Log In
                 <% end %>
               </a>
-              <% unless signed_in %>
+              <% if current_user_id %>
+                <a class="button is-light" href='<%= "/users/#{current_user_id}/edit" %>'>Settings</a>
+              <% else %>
                 <a href="/users/new" class="button is-light">
                   Sign Up
                 </a>
@@ -55,17 +59,10 @@
     </nav>
 
     <main id="app" class="hero is-dark is-fullheight">
-      <% if flash["message"] %>
-        <article id="flash" class="message is-info is-fullwidth">
-          <div class="message-header">
-            <p><%== flash["message"] %></p>
-            <span id="flash-delete">
-              <button class="delete" aria-label="delete"></button>
-            </span>
-          </div>
-        </article>
-      <% end %>
-      <%== yield %>
+      <div>
+        <flash-message content="<%= flash_json %>"></flash-message>
+        <%== yield %>
+      </div>
     </main>
   </body>
 </html>
