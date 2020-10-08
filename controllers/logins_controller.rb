@@ -13,7 +13,7 @@ class LoginsController < BaseController
 
       if user && user.authenticate(params["password"])
         session["current_user_id"] = user.id
-        flash["message"] = "Login successful!"
+        flash["message"], flash["klass"] = "Login successful!", "success"
         r.redirect("/")
       else
         flash.now["message"] = "Invalid username or password."
