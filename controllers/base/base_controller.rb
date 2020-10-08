@@ -3,7 +3,7 @@ class BaseController < Roda
   plugin :render, escape: true
   plugin :sessions, secret: ENV["SESSION_SECRET"]
   plugin :all_verbs
-  plugin :route_csrf
+  plugin :route_csrf, require_request_specific_tokens: false
   plugin :public
   plugin :flash
   plugin :json_parser

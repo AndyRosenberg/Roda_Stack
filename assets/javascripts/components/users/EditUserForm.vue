@@ -46,7 +46,7 @@
 
                 <div class="mt-2">
                   <form :action="action" method="POST" ref="deleteForm" v-if="showDelete">
-                    <input type="hidden" name="authenticity_token" v-model="csrf" />
+                    <CSRF />
                     <input type="hidden" name="_method" value="DELETE" />
                     <div class="control has-icons-left mb-1">
                       <input type="text" name="confirm" class="input" v-model="deleteName" placeholder="type your username to confirm">
@@ -68,12 +68,16 @@
 </template>
 
 <script>
+  import CSRF from '../shared/CSRF.vue';
   export default {
     props: ['current-user'],
 
+    components: {
+      CSRF
+    },
+
     data() {
       return {
-        csrf: document.querySelector('meta[name=_csrf]').content,
         action: '',
         user: {},
         name: '',

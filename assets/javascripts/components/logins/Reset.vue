@@ -12,7 +12,7 @@
                   Passwords do not match.
                 </div>
                 <form ref="resetForm" :action="action" method="POST">
-                  <input type="hidden" name="authenticity_token" v-model="csrf" />
+                  <CSRF />
 
                   <div class="field">
                     <label for="password" class="label has-text-white">New Password</label>
@@ -43,8 +43,14 @@
 </template>
 
 <script>
+  import CSRF from '../shared/CSRF.vue';
+
   export default {
     props: ['reset-token'],
+
+    components: {
+      CSRF
+    },
 
     data() {
       return {

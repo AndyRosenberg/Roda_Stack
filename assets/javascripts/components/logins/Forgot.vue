@@ -9,7 +9,7 @@
             <div class="columns is-centered">
               <div class="column is-5-tablet is-4-desktop is-3-widescreen">
                 <form action="/logins/forgot" method="POST">
-                  <input type="hidden" name="authenticity_token" v-model="csrf" />
+                  <CSRF />
                   <div class="field">
                     <label for="email" class="label has-text-white">Email</label>
                     <div class="control has-icons-left">
@@ -32,11 +32,10 @@
 </template>
 
 <script>
+  import CSRF from '../shared/CSRF.vue';
   export default {
-    data() {
-      return {
-        csrf: document.querySelector('meta[name=_csrf]').content,
-      };
-    },
+    components: {
+      CSRF
+    }
   }
 </script>
