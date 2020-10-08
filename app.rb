@@ -6,8 +6,9 @@ class App < BaseController # :nodoc:
   )
 
   route do |r|
+    check_csrf!
+
     r.public
-    check_csrf! unless r.is_get?
 
     r.root { view("home") }
 
