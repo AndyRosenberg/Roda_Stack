@@ -1,7 +1,7 @@
 <template>
-  <article v-if="flash.message" id="flash" class="message is-info is-fullwidth" :class="flashClass">
+  <article v-if="message" id="flash" class="message is-info is-fullwidth" :class="flashClass">
     <div class="message-header">
-      <p>{{ flash.message }}</p>
+      <p>{{ message }}</p>
       <span id="flash-delete">
         <button class="delete" aria-label="delete" @click="hide"></button>
       </span>
@@ -11,13 +11,12 @@
 
 <script>
   export default {
-    props: ['content'],
+    props: ['message', 'klass'],
 
     computed: {
       flashClass() {
-        let result = {};
-        result[this.klass] = true;
-        result['is-hidden'] = this.hidden;
+        let result = { 'is-hidden': this.hidden };
+        result[`is-${this.klass}`] = true;
         return result;
       }
     },
@@ -25,14 +24,7 @@
     data() {
       return {
         hidden: false,
-        klass: 'is-info',
-        flash: {},
       };
-    },
-
-    created() {
-      this.flash = JSON.parse(this.content);
-      this.klass = `is-${this.flash.klass || 'info'}`;
     },
 
     methods: {

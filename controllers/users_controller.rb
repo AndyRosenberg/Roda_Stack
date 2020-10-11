@@ -6,7 +6,7 @@ class UsersController < BaseController
         if !user.new_record?
           WelcomeMailer.perform_async_in_prod(user.id)
           session["current_user_id"] = user.id
-          flash["message"] = "User has been created!"
+          flash_success "User has been created!"
           r.redirect("/")
         else
           flash_ar_errors(user)
@@ -36,7 +36,7 @@ class UsersController < BaseController
           end
 
           if user.update(new_attrs)
-            flash["message"] = "User has been updated!"
+            flash_success "User has been updated!"
             r.redirect("/")
           else
             flash_ar_errors_with_edit_render
@@ -47,7 +47,7 @@ class UsersController < BaseController
           authorize_user(r, id)
           if r.params["confirm"] == user.name
             if user.destroy
-              flash["message"] = "User has been deleted!"
+              flash_info "User has been deleted!"
               session.clear
               r.redirect("/")
             else
@@ -78,7 +78,7 @@ class UsersController < BaseController
     self.user = User.find_by(id: session["current_user_id"]) if session["current_user_id"]
 
     unless user && id == user.id
-      flash["message"] = "Unauthorized update this user."
+      flash_danger("Unauthorized update this user.")
       r.redirect("/")
     end
   end

@@ -8,6 +8,14 @@ class BaseController < Roda
   plugin :flash
   plugin :json_parser
 
+  FLASH_CLASSES = %w(primary success info warning danger)
+
+  FLASH_CLASSES.each do |klass|
+    define_method("flash_#{klass}") do |message, now: false|
+      flash_with_class(message, klass, now)
+    end
+  end
+
   def api_only(r)
     unless r.env["HTTP_ACCEPT"].split(",").first == "application/json"
       r.redirect "/"
@@ -24,13 +32,14 @@ class BaseController < Roda
     render_json({}.to_json)
   end
 
-  def flash_json
-    flash_json = flash.to_json
-    flash.clear
-    flash_json
+  def flash_ar_errors(object)
+    errors = object.errors.full_messages.join(", ")
+    flash_danger(errors, now: true)
   end
 
-  def flash_ar_errors(object)
-    flash.now["message"] = object.errors.full_messages.join(", ")
+  private
+  def flash_with_class(message, klass, now = false)
+    current_flash = now ? flash.now : flash
+    current_flash["message"], current_flash["klass"] = message, klass
   end
 end

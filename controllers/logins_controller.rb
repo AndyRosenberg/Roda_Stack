@@ -13,17 +13,17 @@ class LoginsController < BaseController
 
       if user && user.authenticate(params["password"])
         session["current_user_id"] = user.id
-        flash["message"], flash["klass"] = "Login successful!", "success"
+        flash_success "Login successful!"
         r.redirect("/")
       else
-        flash.now["message"] = "Invalid username or password."
+        flash_danger("Invalid username or password.", now: true)
         view('logins/sign_in')
       end
     end
 
     r.get "sign_out" do
       session.clear
-      flash["message"] = "Signed Out Successfully!"
+      flash_info("Signed Out Successfully!")
       r.redirect('/logins/sign_in')
     end
 
@@ -39,7 +39,8 @@ class LoginsController < BaseController
           ForgotMailer.perform_async_in_prod(forgotten_user.id)
           r.redirect("/")
         else
-          flash.now["message"] = forgotten_user ? "Could not send. Please try again." : "User not found with that email."
+          message = forgotten_user ? "Could not send. Please try again." : "User not found with that email."
+          flash_warning(message, now: true)
           view("logins/forgot")
         end
       end
@@ -57,7 +58,7 @@ class LoginsController < BaseController
 
         r.post do
           if reset_password(r)
-            flash["message"] = "Password successfully updated!"
+            flash_info("Password successfully updated!")
             r.redirect("/logins/sign_in")
           else
             flash_ar_errors(forgotten_user)
@@ -81,10 +82,10 @@ class LoginsController < BaseController
 
   def reset_redirects?
     if !forgotten_user || !forgotten_user.sent_time
-      flash["message"] = "Unauthorized"
+      flash_danger("Unauthorized")
       r.redirect("/")
     elsif forgotten_user.sent_time < 1.hour.ago
-      flash["message"] = "Token has expired."
+      flash_danger("Token has expired.")
       r.redirect("/logins/forgot")
     end
   end

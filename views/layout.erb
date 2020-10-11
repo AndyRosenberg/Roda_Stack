@@ -60,7 +60,9 @@
 
     <main id="app" class="hero is-dark is-fullheight">
       <div>
-        <flash-message content="<%= flash_json %>"></flash-message>
+        <flash-message 
+          message="<%= flash["message"] %>"
+          klass="<%= flash["klass"] %>"></flash-message>
         <%== yield %>
       </div>
     </main>
