@@ -9,4 +9,9 @@ module RodaFlash
     current_flash = now ? flash.now : flash
     current_flash["message"], current_flash["klass"] = message, klass
   end
+
+  def flash_ar_errors(object)
+    errors = object.errors.full_messages.join(", ")
+    flash_danger(errors, now: true)
+  end
 end

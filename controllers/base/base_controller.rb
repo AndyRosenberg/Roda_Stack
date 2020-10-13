@@ -24,9 +24,4 @@ class BaseController < Roda
     response.status = 422
     render_json({}.to_json)
   end
-
-  def flash_ar_errors(object)
-    errors = object.errors.full_messages.join(", ")
-    flash_danger(errors, now: true)
-  end
 end
