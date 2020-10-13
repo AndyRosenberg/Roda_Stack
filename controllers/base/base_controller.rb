@@ -1,5 +1,4 @@
 class BaseController < Roda
-  include RodaFlash
   use Rack::MethodOverride
   plugin :render, escape: true
   plugin :sessions, secret: ENV["SESSION_SECRET"]
@@ -23,5 +22,23 @@ class BaseController < Roda
   def render_unprocessable
     response.status = 422
     render_json({}.to_json)
+  end
+  
+  %w(primary success info warning danger).each do |klass|
+    define_method("flash_#{klass}") do |message, now: false|
+      flash_with_class(message, klass, now)
+    end
+  end
+
+  def flash_ar_errors(object)
+    errors = object.errors.full_messages.join(", ")
+    flash_danger(errors, now: true)
+  end
+
+  private
+
+  def flash_with_class(message, klass, now = false)
+    current_flash = now ? flash.now : flash
+    current_flash["message"], current_flash["klass"] = message, klass
   end
 end

@@ -8,7 +8,6 @@ require 'sidekiq/web'
 require 'erubi'
 require 'active_record'
 require_relative 'ar_ext'
-require_relative 'flash'
 
 def dirload(dir)
   File.join(__dir__, "../../#{dir}/*.rb")
