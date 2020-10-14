@@ -1,7 +1,7 @@
 var path = require('path');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-var VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 //process.env.NODE_ENV = 'production';
 
 module.exports = {
